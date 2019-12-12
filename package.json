@@ -1,0 +1,15 @@
+{
+  "name": "light-weight-bundler",
+  "version": "0.0.1",
+  "description": "Light weight JS bundler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhrubesh/light-weight-bundler.git"
+  },
+  "author": "Dhrubesh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dhrubesh/light-weight-bundler/issues"
+  },
+  "homepage": "https://github.com/dhrubesh/light-weight-bundler#readme"
+}

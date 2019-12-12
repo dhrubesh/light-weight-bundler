@@ -1,1 +1,1 @@
-# light-weight-bundler
+Light weight JS bundler
