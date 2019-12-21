@@ -47,7 +47,7 @@ function createDependencyGraph(entryPoint) {
         const dirName = path.dirname(asset.filePath);
         asset.mapping = {};
         asset.deps.forEach(relPath => {
-            // remove + .js
+            //TODO: remove + `.js`
             const absolutePath = path.join(dirName, relPath) + '.js';
             const childModule = getModuleInfo(absolutePath);
             asset.mapping[relPath] = childModule.id;
@@ -57,4 +57,26 @@ function createDependencyGraph(entryPoint) {
     return queue;
 }
 
+function bundle(graph) {
+    let modules = '';
+
+    graph.forEach(mod => {
+        modules += `${mod.id}:[
+            function( require, module, exports ){
+                ${mod.code}
+            },
+            ${JSON.stringify(mod.mapping)}
+        ]`
+    })
+
+    const result = `
+    (function(){
+
+    })({${modules}})
+    `;
+
+    return result; 
+}
+
 let graph = createDependencyGraph('test-project/index.js');
+const bundleCode = bundle(graph)
