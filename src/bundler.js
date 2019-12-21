@@ -66,17 +66,27 @@ function bundle(graph) {
                 ${mod.code}
             },
             ${JSON.stringify(mod.mapping)}
-        ]`
+        ],`
     })
 
     const result = `
-    (function(){
+    (function(modules){
+        function require(id){
+            const [fn, mapping] = modules[id];
+            function localRequire(relativePath){
+                return require(mapping[relativePath])
+            }
+            const module = {exports:{}};
+            fn(localRequire, module, module.exports);
+            return module.exports;
+        }
+        require(0);
+    })({${modules}})`;
 
-    })({${modules}})
-    `;
-
-    return result; 
+    return result;
 }
 
 let graph = createDependencyGraph('test-project/index.js');
-const bundleCode = bundle(graph)
+let bundleCode = bundle(graph);
+
+console.log('bundleCode', bundleCode);
