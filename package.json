@@ -11,5 +11,10 @@
   "bugs": {
     "url": "https://github.com/dhrubesh/light-weight-bundler/issues"
   },
-  "homepage": "https://github.com/dhrubesh/light-weight-bundler#readme"
+  "homepage": "https://github.com/dhrubesh/light-weight-bundler#readme",
+  "dependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/parser": "^7.7.7",
+    "@babel/traverse": "^7.7.4"
+  }
 }
