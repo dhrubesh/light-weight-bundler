@@ -1,5 +1,6 @@
 const fs = require("fs");
 const parser = require("@babel/parser");
+const path = require('path');
 const traverse = require("@babel/traverse").default;
 const babel = require("@babel/core");
 
@@ -35,6 +36,24 @@ function getModuleInfo(filePath) {
     };
 }
 
-let testEntry = getModuleInfo('./test-project/index.js');
+function createDependencyGraph(entryPoint) {
+    let entryInfo = getModuleInfo(entryPoint);
 
-console.log('testEntry', testEntry);
+    const queue = [entryInfo];
+
+    
+    for (const asset of queue) {
+        const dirName = path.dirname(asset.filePath);
+        asset.mapping = {};
+        asset.deps.forEach(relPath => {
+            // remove + .js
+            const absolutePath = path.join(dirName, relPath) + '.js';
+            const childModule = getModuleInfo(absolutePath);
+            asset.mapping[relPath] = childModule.id;
+            queue.push(childModule)
+        })
+    }
+    return queue;
+}
+
+let graph = createDependencyGraph('test-project/index.js');
