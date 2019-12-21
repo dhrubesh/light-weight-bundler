@@ -25,7 +25,9 @@ function getModuleInfo(filePath) {
         }
     });
 
-    const { code } = babel.transformFromAstSync(ast, null);
+    const { code } = babel.transformFromAstSync(ast, null, {
+        presets: ['@babel/preset-env']
+    });
     const id = ID++;
 
     return {
@@ -41,7 +43,6 @@ function createDependencyGraph(entryPoint) {
 
     const queue = [entryInfo];
 
-    
     for (const asset of queue) {
         const dirName = path.dirname(asset.filePath);
         asset.mapping = {};

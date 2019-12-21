@@ -16,5 +16,8 @@
     "@babel/core": "^7.7.7",
     "@babel/parser": "^7.7.7",
     "@babel/traverse": "^7.7.4"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.7.7"
   }
 }
